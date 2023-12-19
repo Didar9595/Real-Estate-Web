@@ -45,11 +45,11 @@ const Signup = () => {
 
   return (
        <Stack sx={{display:'flex',alignItems:'center'}}>
-        <Stack direction='column' spacing={3} sx={{width:'50%',marginTop:'4em',border:'0px solid #444d5c',boxShadow:'10px 10px 40px 2px',padding:'2em',borderRadius:'0.5em',background:'white'}}>
+        <Stack direction='column' spacing={3} sx={{width:'50%',marginTop:'4em',border:'0px solid #444d5c',boxShadow:'10px 10px 40px 2px',padding:'2em',borderRadius:'0.5em',background:'#dce8fa'}}>
           <Typography variant='h3' sx={{fontFamily:'poppins',fontWeight:'bold',color:'#161b21',textAlign:'center'}}>Sign Up</Typography>
-          <TextField label='Username' type='text' name='username' sx={{color:'#161b21'}} onChange={handleChange}/>
-          <TextField label='Email' type='email' name='email' sx={{color:'#161b21'}} onChange={handleChange}/>
-          <TextField label='Password' type='password' name='password' sx={{color:'#161b21'}} onChange={handleChange}/>
+          <TextField label='Username' type='text' name='username' sx={{background:'white',color:'#161b21'}} onChange={handleChange}/>
+          <TextField label='Email' type='email' name='email' sx={{background:'white',color:'#161b21'}} onChange={handleChange}/>
+          <TextField label='Password' type='password' name='password' sx={{background:'white',color:'#161b21'}} onChange={handleChange}/>
           <Button variant='contained' size='large' disabled={loading} sx={{background:'#161b21',color:'white',fontFamily:'poppins',fontWeight:'bold'}} onClick={handleClick}>{loading?'Loading...':'Sign up'}</Button>
           <Stack direction='row' spacing={2} sx={{display:'flex',alignItems:'center'}}>
             <Typography variant='body1' sx={{fontFamily:'poppins'}}>Already Have an Account?</Typography>
