@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { signInStart,signInSuccess,signInFailure } from '../redux/user/userSlice'
+import OAuth from '../components/OAuth'
 
 const Signin = () => {
   const [formData, setFormData] = useState({ email: '', password: '' })
@@ -50,6 +51,7 @@ const Signin = () => {
         <TextField label='Email' type='email' name='email' sx={{ background: 'white', color: '#161b21' }} onChange={handleChange} />
         <TextField label='Password' type='password' name='password' sx={{ background: 'white', color: '#161b21' }} onChange={handleChange} />
         <Button variant='contained' size='large' sx={{ background: '#161b21', color: 'white', fontFamily: 'poppins', fontWeight: 'bold' }} onClick={handleClick}>{loading ? 'Loading...' : 'Sign In'}</Button>
+        <OAuth/>
         <Stack direction='row' spacing={2} sx={{ display: 'flex', alignItems: 'center' }}>
           <Typography variant='body1' sx={{ fontFamily: 'poppins' }}>Don't Have an Account?</Typography>
           <Link to='/signup'><Button variant='text' size='large' sx={{ fontFamily: 'poppins', color: '#444d5c' }}>Sign Up</Button></Link>
