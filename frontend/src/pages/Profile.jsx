@@ -1,4 +1,5 @@
-import { Avatar, Button, Stack, TextField, Typography } from '@mui/material'
+import { Avatar, Button,  Stack, TextField, Typography } from '@mui/material'
+import {Link} from 'react-router-dom'
 import React, { useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
 import LogoutIcon from '@mui/icons-material/Logout';
@@ -127,9 +128,10 @@ const Profile = () => {
          <TextField defaultValue={currentUser.email}  name='email' type='email' sx={{background:'white'}} onChange={handleChange}/>
          <TextField defaultValue={currentUser.password} label='Password' name='password' type='password' sx={{background:'white'}} onChange={handleChange}/>
          <Button variant='contained' size='large' disabled={loading} sx={{fontFamily:'poppins',fontWeight:'bold',color:'white',background:'#444d5c'}} onClick={handleSubmit}>{loading?"Loading...":'Update'}</Button>
+         <Link to="/create-listing"><Button  variant='contained' size='large' color='success' sx={{fontFamily:'poppins',fontWeight:'bold',width:'100%'}}>Create Listing</Button></Link>  
          <Stack direction='row' sx={{display:'flex',justifyContent:'space-between'}}>
           <Button color='error' size='large' sx={{fontFamily:"poppins",fontWeight:'bold'}} onClick={handleDelete}>Delete Account</Button>
-          <Button color='error' size='large' sx={{fontFamily:"poppins",fontWeight:'bold'}} onClick={handleLogout}>Sign Out<LogoutIcon/></Button>
+        <Button color='error' size='large' sx={{fontFamily:"poppins",fontWeight:'bold'}} onClick={handleLogout}>Sign Out<LogoutIcon/></Button>
          </Stack>
          <Typography color='error' sx={{fontFamily:'poppins',fontWeight:'bold'}}>{error?error:''}</Typography>
          <Typography color='success' sx={{fontFamily:'poppins',fontWeight:'bold'}}>{updateSuccess?'Updated Successfully!!!':''}</Typography>
