@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux'
 import LogoutIcon from '@mui/icons-material/Logout';
 import {getDownloadURL, getStorage,ref, uploadBytesResumable} from 'firebase/storage'
 import { app } from '../firebase';
-import { updateUserStart,updateUserSuccess,updateUserFailure,deleteUserStart,deleteUserSuccess,deleteUserFailure } from '../redux/user/userSlice';
+import { updateUserStart,updateUserSuccess,updateUserFailure,deleteUserStart,deleteUserSuccess,deleteUserFailure, signoutStart, signoutFailure, signoutSuccess } from '../redux/user/userSlice';
 import { useDispatch } from 'react-redux';
 
 const Profile = () => {
@@ -98,6 +98,21 @@ const Profile = () => {
 
   }
 
+  const handleLogout=async()=>{
+       try {
+        dispatch(signoutStart())
+        const res=await fetch('/api/auth/signout');
+        const data=await res.json();
+        if(data.success===false){
+          dispatch(signoutFailure(data.message))
+          return;
+        }
+        dispatch(signoutSuccess(data))
+       } catch (error) {
+        dispatch(signoutFailure(error.message))
+       }
+  }
+
 
   return (
     <Stack sx={{width:'100%',display:'flex',alignItems:'center'}}>
@@ -114,7 +129,7 @@ const Profile = () => {
          <Button variant='contained' size='large' disabled={loading} sx={{fontFamily:'poppins',fontWeight:'bold',color:'white',background:'#444d5c'}} onClick={handleSubmit}>{loading?"Loading...":'Update'}</Button>
          <Stack direction='row' sx={{display:'flex',justifyContent:'space-between'}}>
           <Button color='error' size='large' sx={{fontFamily:"poppins",fontWeight:'bold'}} onClick={handleDelete}>Delete Account</Button>
-          <Button color='error' size='large' sx={{fontFamily:"poppins",fontWeight:'bold'}}>Sign Out<LogoutIcon/></Button>
+          <Button color='error' size='large' sx={{fontFamily:"poppins",fontWeight:'bold'}} onClick={handleLogout}>Sign Out<LogoutIcon/></Button>
          </Stack>
          <Typography color='error' sx={{fontFamily:'poppins',fontWeight:'bold'}}>{error?error:''}</Typography>
          <Typography color='success' sx={{fontFamily:'poppins',fontWeight:'bold'}}>{updateSuccess?'Updated Successfully!!!':''}</Typography>
