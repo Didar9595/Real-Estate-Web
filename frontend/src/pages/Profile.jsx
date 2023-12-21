@@ -60,7 +60,7 @@ const Profile = () => {
          <Button variant='contained' size='large' sx={{fontFamily:'poppins',fontWeight:'bold',color:'white',background:'#444d5c'}}>Update</Button>
          <Stack direction='row' sx={{display:'flex',justifyContent:'space-between'}}>
           <Button color='error' size='large' sx={{fontFamily:"poppins",fontWeight:'bold'}}>Delete Account</Button>
-          <Button color='error' size='large' sx={{fontFamily:"poppins",fontWeight:'bold'}}>Sign Out  <LogoutIcon/></Button>
+          <Button color='error' size='large' sx={{fontFamily:"poppins",fontWeight:'bold'}}>Sign Out<LogoutIcon/></Button>
          </Stack>
       </Stack>
     </Stack>
