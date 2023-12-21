@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux'
 import LogoutIcon from '@mui/icons-material/Logout';
 import {getDownloadURL, getStorage,ref, uploadBytesResumable} from 'firebase/storage'
 import { app } from '../firebase';
-import { updateUserStart,updateUserSuccess,updateUserFailure } from '../redux/user/userSlice';
+import { updateUserStart,updateUserSuccess,updateUserFailure,deleteUserStart,deleteUserSuccess,deleteUserFailure } from '../redux/user/userSlice';
 import { useDispatch } from 'react-redux';
 
 const Profile = () => {
@@ -80,6 +80,25 @@ const Profile = () => {
     }
   }
 
+  const handleDelete=async()=>{
+      try {
+        dispatch(deleteUserStart())
+        const res= await fetch(`/api/user/delete/${currentUser._id}`,{
+          method:'DELETE',
+        });
+        const data=await res.json()
+        if(data.success===false){
+          dispatch(deleteUserFailure(data.message))
+          return
+        }
+        dispatch(deleteUserSuccess(data))
+      } catch (error) {
+        dispatch(deleteUserFailure(error.message))
+      }
+
+  }
+
+
   return (
     <Stack sx={{width:'100%',display:'flex',alignItems:'center'}}>
       <Stack direction='column' spacing={3} sx={{width:'30%',marginTop:'4em',border:'0px solid #444d5c',boxShadow:'10px 10px 40px 2px',padding: '2em', borderRadius: '0.5em', background: '#dce8fa' }}>
@@ -94,7 +113,7 @@ const Profile = () => {
          <TextField defaultValue={currentUser.password} label='Password' name='password' type='password' sx={{background:'white'}} onChange={handleChange}/>
          <Button variant='contained' size='large' disabled={loading} sx={{fontFamily:'poppins',fontWeight:'bold',color:'white',background:'#444d5c'}} onClick={handleSubmit}>{loading?"Loading...":'Update'}</Button>
          <Stack direction='row' sx={{display:'flex',justifyContent:'space-between'}}>
-          <Button color='error' size='large' sx={{fontFamily:"poppins",fontWeight:'bold'}}>Delete Account</Button>
+          <Button color='error' size='large' sx={{fontFamily:"poppins",fontWeight:'bold'}} onClick={handleDelete}>Delete Account</Button>
           <Button color='error' size='large' sx={{fontFamily:"poppins",fontWeight:'bold'}}>Sign Out<LogoutIcon/></Button>
          </Stack>
          <Typography color='error' sx={{fontFamily:'poppins',fontWeight:'bold'}}>{error?error:''}</Typography>
