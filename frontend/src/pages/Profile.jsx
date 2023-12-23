@@ -131,11 +131,27 @@ const Profile = () => {
     }
   }
 
+  const handleListingDelete=async(listingId)=>{
+        try {
+          const res=await fetch(`/api/listing/delete/${listingId}`,{
+            method:'DELETE',
+          })
+          const data=await res.json()
+          if(data.success==false){
+            console.log(data.message)
+            return
+          }
+          setUserListings(prev=>prev.filter(listing=>listing._id!==listingId))
+        } catch (error) {
+          console.log('Error deleting listing')
+        }
+  }
+
 
 
   return (
-    <Stack direction='column' spacing={3} sx={{ width: '100%', display: 'flex', alignItems: 'center' }}>
-      <Stack direction='column' spacing={3} sx={{ width: '30%', marginTop: '4em', border: '0px solid #444d5c', boxShadow: '10px 10px 40px 2px', padding: '2em', borderRadius: '0.5em', background: '#dce8fa' }}>
+    <Stack direction='column' spacing={3} sx={{ width: '100%', display: 'flex', alignItems: 'center' , marginTop:'8em'}}>
+      <Stack direction='column' spacing={3} sx={{ width: '30%', border: '0px solid #444d5c', boxShadow: '10px 10px 40px 2px', padding: '2em', borderRadius: '0.5em', background: '#dce8fa' }}>
         <Typography variant='h4' sx={{ fontFamily: 'poppins', fontWeight: 'bold', textAlign: 'center' }}>Profile</Typography>
         <input onChange={(e) => setFile(e.target.files[0])} type='file' ref={fileRef} hidden accept='image/*' />
         <Stack direction='row' sx={{ display: 'flex', justifyContent: "space-between", alignItems: 'center' }}>
@@ -158,19 +174,19 @@ const Profile = () => {
         <Typography color='success' sx={{ fontFamily: 'poppins', fontWeight: 'bold' }}>{updateSuccess ? 'Updated Successfully!!!' : ''}</Typography>
         <Typography color='error' sx={{ fontFamily: 'poppins', fontWeight: 'bold' }}>{showListingsError ? 'Error displaying Listing!!!' : ''}</Typography>
       </Stack>
-      <Stack spacing={2} sx={{ marginTop: '5em', width: '80%', marginLeft: '7em', marginRight: '7em' }}>
-        <Typography variant='h3' sx={{ fontFamily: 'poppins', fontWeight: 'bold', textAlign: 'center' }}>Your Listings</Typography>
+      <Stack  sx={{width: '80%'}}>
+      <Typography variant='h4' sx={{fontFamily:'poppins',fontWeight:'bold',textAlign:'center',marginTop:'2em'}}>Your Listings</Typography>
         {
           userListings.length > 0 &&
           userListings.map((listing) => (
-            <Stack key={listing._id} direction='row' sx={{ display: 'flex', justifyContent: 'space-between' }}>
+            <Stack key={listing._id} direction='row' sx={{ display: 'flex', justifyContent: 'space-between',borderBottom:'0.5px solid #444d5c',padding:'1.5em'}}>
               <Stack direction='row' spacing={1} sx={{diaplay:'flex',alignItems:'center'}}>
               <Link to={`/listing/${listing._id}`}><Avatar src={listing.imageUrls[0]} alt='flat-img' variant='rounded' sx={{ width: '130px', height: '100px' }} /> </Link>
               <Link to={`/listing/${listing._id}`}><Typography variant='h5' sx={{fontFamily:'poppins',fontWeight:'bold',color:'black'}}>{listing.name}</Typography></Link>
               </Stack>
               <Stack direction='column' spacing={1}>
                 <Button color='warning' variant='contained' sx={{ fontFamily: 'poppins', fontWeight: 'bold' }}>Edit</Button>
-                <Button color='error' variant='contained' sx={{ fontFamily: 'poppins', fontWeight: 'bold' }}>Delete</Button>
+                <Button color='error' variant='contained' sx={{ fontFamily: 'poppins', fontWeight: 'bold' }} onClick={()=>handleListingDelete(listing._id)}>Delete</Button>
               </Stack>
             </Stack>
           ))
