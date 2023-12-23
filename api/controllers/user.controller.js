@@ -48,7 +48,7 @@ export const deleteUser=async(req,res,next)=>{
 }
 
 export const getUserListings=async(req,res,next)=>{
-    if(req.user.id!==req.params.id) return next(errorHandler(401,"You cannot delete other's account"))
+    if(req.user.id!==req.params.id) return next(errorHandler(401,"You cannot get others listing"))
 
     try {
         const listings=await Listing.find({userRef:req.params.id});
