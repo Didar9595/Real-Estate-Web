@@ -1,5 +1,5 @@
 import { Avatar, Button, Stack, TextField, Typography } from '@mui/material'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import React, { useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
 import LogoutIcon from '@mui/icons-material/Logout';
@@ -7,6 +7,7 @@ import { getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/
 import { app } from '../firebase';
 import { updateUserStart, updateUserSuccess, updateUserFailure, deleteUserStart, deleteUserSuccess, deleteUserFailure, signoutStart, signoutFailure, signoutSuccess } from '../redux/user/userSlice';
 import { useDispatch } from 'react-redux';
+
 
 const Profile = () => {
   const fileRef = useRef(null)
@@ -18,7 +19,8 @@ const Profile = () => {
   const [updateSuccess, setUpdateSuccess] = useState(false)
   const [showListingsError, setShowListingsError] = useState(false)
   const [userListings, setUserListings] = useState([])
-
+  
+  const navigate=useNavigate()
 
   const dispatch = useDispatch()
 
@@ -146,6 +148,7 @@ const Profile = () => {
           console.log('Error deleting listing')
         }
   }
+  
 
 
 
@@ -185,7 +188,7 @@ const Profile = () => {
               <Link to={`/listing/${listing._id}`}><Typography variant='h5' sx={{fontFamily:'poppins',fontWeight:'bold',color:'black'}}>{listing.name}</Typography></Link>
               </Stack>
               <Stack direction='column' spacing={1}>
-                <Button color='warning' variant='contained' sx={{ fontFamily: 'poppins', fontWeight: 'bold' }}>Edit</Button>
+               <Link to={`/update-listing/${listing._id}`}><Button color='warning' variant='contained' sx={{ fontFamily: 'poppins', fontWeight: 'bold',color:'black' }}>Edit</Button></Link>
                 <Button color='error' variant='contained' sx={{ fontFamily: 'poppins', fontWeight: 'bold' }} onClick={()=>handleListingDelete(listing._id)}>Delete</Button>
               </Stack>
             </Stack>
