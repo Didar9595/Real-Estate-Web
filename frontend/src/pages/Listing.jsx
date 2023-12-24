@@ -83,6 +83,7 @@ const Listing = () => {
                              <Typography sx={{fontFamily:'poppins',color:'green'}}><LocalParkingIcon color='success'/> {listing.parking?"Parking":"No Parking"}</Typography>
                              <Typography sx={{fontFamily:'poppins',color:'green'}}><ChairIcon color='success'/> {listing.furnished?'Furnished':'Not Furnished'}</Typography>
                            </Stack>
+                           
                         </Stack>
                     </Stack>
                 )
