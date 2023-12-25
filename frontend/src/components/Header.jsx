@@ -19,7 +19,7 @@ const Header = () => {
 
   useEffect(()=>{
     const urlParams=new URLSearchParams(location.search)
-    const searchTermFromUrl=urlParams.get(searchTerm)
+    const searchTermFromUrl=urlParams.get('searchTerm')
     if(searchTermFromUrl){
       setSearchTerm(searchTermFromUrl)
     }
