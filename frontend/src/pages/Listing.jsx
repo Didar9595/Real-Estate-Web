@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { Avatar, Stack, Typography } from '@mui/material'
+import { Avatar, Button, Stack, Typography } from '@mui/material'
 import {Swiper,SwiperSlide} from 'swiper/react'
 import SwiperCore from 'swiper'
 import {Navigation} from 'swiper/modules'
@@ -10,6 +10,8 @@ import LocalHotelIcon from '@mui/icons-material/LocalHotel';
 import BathtubIcon from '@mui/icons-material/Bathtub';
 import LocalParkingIcon from '@mui/icons-material/LocalParking';
 import ChairIcon from '@mui/icons-material/Chair';
+import { useSelector } from 'react-redux'
+import Contact from '../components/Contact'
 
 const Listing = () => {
     SwiperCore.use([Navigation])
@@ -17,6 +19,11 @@ const Listing = () => {
     const [listing, setListing] = useState(null)
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(false)
+    const [contact,setContact]=useState(false)
+
+    const {currentUser}=useSelector(state=>state.user);
+
+
 
     useEffect(() => {
         const fetchListing = async () => {
@@ -83,7 +90,14 @@ const Listing = () => {
                              <Typography sx={{fontFamily:'poppins',color:'green'}}><LocalParkingIcon color='success'/> {listing.parking?"Parking":"No Parking"}</Typography>
                              <Typography sx={{fontFamily:'poppins',color:'green'}}><ChairIcon color='success'/> {listing.furnished?'Furnished':'Not Furnished'}</Typography>
                            </Stack>
-                           
+                           {
+                              currentUser && listing.userRef !==currentUser._id && !contact &&(
+                                <Button variant='contained' size='large' onClick={()=>setContact(true)} sx={{fontFamily:'poppins',color:'white',background:'#161b21'}}>Contact Owner</Button>
+                              )
+                           }
+                           {
+                            contact && <Contact listing={listing}/>
+                           }
                         </Stack>
                     </Stack>
                 )
