@@ -12,6 +12,7 @@ const Search = () => {
     })
     const [loading,setLoading]=useState(false)
     const [listings,setListings]=useState([])
+    const [showMore,setShowMore]=useState(false)
 
     console.log(listings)
 
@@ -57,9 +58,15 @@ const Search = () => {
 
         const fetchListings=async()=>{
              setLoading(true)
+             setShowMore(false)
              const searchQuery=urlParams.toString()
              const res=await fetch(`/api/listing/get?${searchQuery}`)
              const data =await res.json()
+             if(data.length>8){
+                setShowMore(true)
+             }else{
+                setShowMore(false)
+             }
              setListings(data)
              setLoading(false)
         }
@@ -80,6 +87,20 @@ const Search = () => {
           const searchQuery=urlParams.toString()
 
           navigate(`/search?${searchQuery}`)
+    }
+
+    const handleShowMore=async()=>{
+          const numberOfListings=listings.length;
+          const startIndex=numberOfListings
+          const urlParams=new URLSearchParams(location.search)
+          urlParams.set('startIndex',startIndex)
+          const searchQuery=urlParams.toString()
+          const res=await fetch(`/api/listing/get?${searchQuery}`)
+          const data=await res.json()
+          if(data.length<9){
+            setShowMore(false)
+          }
+          setListings([...listings,...data])
     }
 
 
@@ -132,6 +153,13 @@ const Search = () => {
                     ))
                 }
                </Grid>
+            </Stack>
+            <Stack sx={{padding:'2em 6em'}}>
+            {
+                showMore && (
+                    <Button variant='contained' sx={{fontFamily:'poppins',background:'#444d5c',color:'white',width:'20%'}} onClick={handleShowMore}>Show More</Button>
+                )
+            }
             </Stack>
         </Stack>
     )
