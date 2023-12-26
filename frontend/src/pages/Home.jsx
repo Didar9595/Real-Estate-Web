@@ -82,7 +82,7 @@ const Home = () => {
           }
         </Swiper>
       </Box>
-      <Stack direction='column' spacing={10} sx={{padding:'5em 3em'}}>
+      <Stack direction='column' spacing={10} sx={{padding:'5em 3em',background:'linear-gradient(to left,white,#c5dbfc)'}}>
          {
             offerListings && offerListings.length>0 &&(
               <Stack spacing={2}>
