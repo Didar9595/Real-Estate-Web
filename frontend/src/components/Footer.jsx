@@ -3,7 +3,7 @@ import React from 'react'
 
 const Footer = () => {
     return (
-        <Stack direction='column' sx={{display:'flex',alignItems:'center',padding:'2em 0em'}}>
+        <Stack direction='column' sx={{marginTop:'4em',display:'flex',alignItems:'center',padding:'2em 0em',borderTop:'0.1px solid #444d5c'}}>
             <Stack direction='row'>
                 <Typography variant='h5' sx={{ fontFamily: 'poppins', fontWeight: 'bold', color: '#444d5c' }}>Real</Typography>
                 <Typography variant='h5' sx={{ fontFamily: 'poppins', fontWeight: 'bold', color: '#161b21' }}>Estate</Typography>
