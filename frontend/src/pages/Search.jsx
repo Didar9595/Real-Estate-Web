@@ -1,6 +1,7 @@
-import { Stack, TextField, Typography, FormControlLabel, Checkbox ,Select,MenuItem, Button} from '@mui/material'
+import { Stack, TextField, Typography, FormControlLabel, Checkbox ,Select,MenuItem, Button, Grid} from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import {useNavigate} from 'react-router-dom'
+import ListingItems from '../components/ListingItems'
 
 
 const Search = () => {
@@ -112,9 +113,25 @@ const Search = () => {
                 </Stack>
                 <Button variant='contained' size='small' sx={{background:'#444d5c',color:'white',fontFamily:'poppins',fontWeight:'bold',width:'20%'}} onClick={handleSubmit}>Search</Button>
             </Stack>
-            <Stack direction='column' spacing={2} sx={{padding:'1em 5em'}}>
+            <Stack direction='column' spacing={1} sx={{padding:'1em 5em'}}>
                <Typography variant='h4' sx={{fontFamily:'poppins',fontWeight:'bold'}}>Listings:</Typography> 
-               
+               <Grid container rowSpacing={4} columnSpacing={2}>
+                {!loading && listings.length===0 && (
+                    <Typography variant='h6' sx={{fontFamily:'poppins'}}>No Listing found!!!</Typography>
+                )}
+                {
+                    loading && (
+                        <Typography variant='h6' sx={{fontFamily:'poppins'}}>Loading...</Typography>       
+                    )
+                }
+                {
+                    !loading && listings && listings.map(listing=>(
+                        <Grid item xs={4}>
+                        <ListingItems key={listing._id} listing={listing}/>
+                        </Grid>
+                    ))
+                }
+               </Grid>
             </Stack>
         </Stack>
     )

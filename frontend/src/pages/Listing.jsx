@@ -76,7 +76,7 @@ const Listing = () => {
                             <Typography sx={{fontFamily:'poppins',padding:'0.5em 4.5em',borderRadius:'0.4em',background:'#fa9bb9',color:'white'}}>{listing.type==='rent'?'For Rent':'For Sale'}</Typography>
                             {
                                 listing.offer && (
-                                    <Typography sx={{fontFamily:'poppins',padding:'0.5em 4.5em',borderRadius:'0.4em',background:'green',color:'white'}}>${+listing.regularPrice- +listing.discountPrice}</Typography>
+                                    <Typography sx={{fontFamily:'poppins',padding:'0.5em 4.5em',borderRadius:'0.4em',background:'green',color:'white'}}>${+listing.regularPrice- +listing.discountPrice} discount</Typography>
                                 )
                             }
                            </Stack>
